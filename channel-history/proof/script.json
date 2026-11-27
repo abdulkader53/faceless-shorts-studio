@@ -1,0 +1,30 @@
+{
+  "voice": "bm_george",
+  "speed": 1.35,
+  "lead": 0.2,
+  "outro": 0.4,
+  "gap": 0.12,
+  "music": "bed",
+  "lines": [
+    {
+      "text": "In forty AD, Caligula marched forty thousand soldiers to the ocean.",
+      "caps": "THE MARCH TO THE OCEAN",
+      "gap": 0.12
+    },
+    {
+      "text": "Across the Alps, the legion covered eight hundred miles.",
+      "caps": "THE EXPEDITION ROUTE",
+      "gap": 0.12
+    },
+    {
+      "text": "At Gesoriacum's cliffs, the exhausted army prepared for mutiny.",
+      "caps": "MUTINY AT THE CHANNEL",
+      "gap": 0.12
+    },
+    {
+      "text": "Caligula commanded them to draw swords and attack the sea.",
+      "caps": "WAR AGAINST NEPTUNE",
+      "gap": 0.2
+    }
+  ]
+}

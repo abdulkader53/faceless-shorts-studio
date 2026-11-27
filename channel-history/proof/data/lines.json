@@ -1,0 +1,31 @@
+{
+ "duration": 12.43,
+ "voice": "bm_george",
+ "speed": 1.35,
+ "lines": [
+  {
+   "i": 0,
+   "text": "In forty AD, Caligula marched forty thousand soldiers to the ocean.",
+   "start": 0.2,
+   "end": 3.49
+  },
+  {
+   "i": 1,
+   "text": "Across the Alps, the legion covered eight hundred miles.",
+   "start": 3.61,
+   "end": 5.973
+  },
+  {
+   "i": 2,
+   "text": "At Gesoriacum's cliffs, the exhausted army prepared for mutiny.",
+   "start": 6.093,
+   "end": 9.082
+  },
+  {
+   "i": 3,
+   "text": "Caligula commanded them to draw swords and attack the sea.",
+   "start": 9.202,
+   "end": 11.83
+  }
+ ]
+}

@@ -1,0 +1,127 @@
+{
+ "duration": 53.19,
+ "voice": "am_michael",
+ "speed": 1.05,
+ "lines": [
+  {
+   "i": 0,
+   "text": "In nineteen thirty-two, the Australian army went to war against twenty thousand emus.",
+   "start": 0.25,
+   "end": 5.791
+  },
+  {
+   "i": 1,
+   "text": "And the emus won.",
+   "start": 5.951,
+   "end": 7.023
+  },
+  {
+   "i": 2,
+   "text": "See, after World War One, Australia gave farmland to war veterans,",
+   "start": 7.183,
+   "end": 11.793
+  },
+  {
+   "i": 3,
+   "text": "who started growing wheat.",
+   "start": 12.033,
+   "end": 13.363
+  },
+  {
+   "i": 4,
+   "text": "Then twenty thousand hungry emus showed up,",
+   "start": 13.523,
+   "end": 15.963
+  },
+  {
+   "i": 5,
+   "text": "and destroyed the crops.",
+   "start": 16.403,
+   "end": 17.722
+  },
+  {
+   "i": 6,
+   "text": "The farmers had fought in the war, so they asked for machine guns.",
+   "start": 17.882,
+   "end": 21.615
+  },
+  {
+   "i": 7,
+   "text": "And the army came, with two guns and ten thousand bullets.",
+   "start": 21.775,
+   "end": 25.273
+  },
+  {
+   "i": 8,
+   "text": "Easy mission, right?",
+   "start": 25.433,
+   "end": 26.542
+  },
+  {
+   "i": 9,
+   "text": "Wrong.",
+   "start": 26.702,
+   "end": 27.212
+  },
+  {
+   "i": 10,
+   "text": "The emus split into tiny groups,",
+   "start": 27.372,
+   "end": 29.352
+  },
+  {
+   "i": 11,
+   "text": "and sprinted away faster than the army's truck.",
+   "start": 29.712,
+   "end": 32.232
+  },
+  {
+   "i": 12,
+   "text": "The first machine gun jammed.",
+   "start": 32.392,
+   "end": 34.031
+  },
+  {
+   "i": 13,
+   "text": "A month later, ten thousand bullets",
+   "start": 34.191,
+   "end": 36.353
+  },
+  {
+   "i": 14,
+   "text": "had taken down only about a thousand emus.",
+   "start": 36.353,
+   "end": 39.354
+  },
+  {
+   "i": 15,
+   "text": "So the army gave up, and went home.",
+   "start": 39.514,
+   "end": 41.47
+  },
+  {
+   "i": 16,
+   "text": "Even the major admitted, if his soldiers could take bullets like these birds,",
+   "start": 41.63,
+   "end": 46.27
+  },
+  {
+   "i": 17,
+   "text": "they could take on any army on Earth.",
+   "start": 46.64,
+   "end": 48.713
+  },
+  {
+   "i": 18,
+   "text": "Final score:",
+   "start": 48.873,
+   "end": 49.673
+  },
+  {
+   "i": 19,
+   "text": "emus one, army zero.",
+   "start": 50.033,
+   "end": 51.59
+  }
+ ]
+}

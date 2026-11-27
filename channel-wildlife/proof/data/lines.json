@@ -1,0 +1,31 @@
+{
+ "duration": 14.472,
+ "voice": "am_michael",
+ "speed": 1.2,
+ "lines": [
+  {
+   "i": 0,
+   "text": "The mantis shrimp strikes with ten thousand Gs of acceleration.",
+   "start": 0.25,
+   "end": 3.546
+  },
+  {
+   "i": 1,
+   "text": "Its biological spring bends like a crossbow, then slips the latch.",
+   "start": 3.696,
+   "end": 7.442
+  },
+  {
+   "i": 2,
+   "text": "The punch boils the water into a cavitation bubble,",
+   "start": 7.592,
+   "end": 10.152
+  },
+  {
+   "i": 3,
+   "text": "whose collapse unleashes an eight-thousand-degree shockwave.",
+   "start": 10.622,
+   "end": 13.772
+  }
+ ]
+}

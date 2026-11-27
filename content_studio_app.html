@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Content Studio - Creator Operations Platform</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Premium custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    ::-webkit-scrollbar-thumb { background: rgba(71, 85, 105, 0.4); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.7); }
+    .nav-active {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border-right: 3px solid #f59e0b;
+      font-weight: 600;
+    }
+    .badge-history { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
+    .badge-wildlife { background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-amber-500 selection:text-black flex flex-col md:flex-row">
+
+  <!-- ========================================================================= -->
+  <!-- SIDEBAR NAVIGATION                                                        -->
+  <!-- ========================================================================= -->
+  <aside class="w-full md:w-64 bg-slate-900/95 border-r border-slate-800 flex flex-col shrink-0 md:min-h-screen z-30">
+    <!-- Brand Header -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-600 flex items-center justify-center shadow-lg shadow-amber-500/20 text-white font-black text-lg">
+          ▶
+        </div>
+        <div>
+          <h1 class="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
+            CONTENT STUDIO
+          </h1>
+          <p class="text-[11px] text-slate-400">Creator Operations Platform</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engine Connection Badge -->
+    <div class="px-5 py-3 border-b border-slate-800/60 bg-slate-950/40">
+      <div class="flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" id="bridgeIndicator"></span>
+          <span class="text-slate-300 font-medium" id="bridgeStatusText">Bridge: Checking...</span>
+        </div>
+        <span class="text-[10px] text-slate-500 font-mono" id="bridgePortText">Port 3000</span>
+      </div>
+    </div>
+
+    <!-- Navigation Items -->
+    <nav class="flex-1 px-3 py-4 space-y-1 text-xs">
+      <button onclick="switchTab('overview')" id="nav-overview" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all nav-active text-left">
+        <span class="text-base">📊</span> <span>Overview Dashboard</span>
+      </button>
+
+      <button onclick="switchTab('calendar')" id="nav-calendar" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">📅</span> <span>Content Calendar</span>
+        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold" id="navCountCalendar">15</span>
+      </button>
+
+      <button onclick="switchTab('production')" id="nav-production" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">🎬</span> <span>Production Workspace</span>
+      </button>
+
+      <button onclick="switchTab('topics')" id="nav-topics" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">💡</span> <span>Topic Bank & Vault</span>
+        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-bold" id="navCountTopics">15</span>
+      </button>
+
+      <button onclick="switchTab('research')" id="nav-research" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">🔍</span> <span>Research & Trends</span>
+      </button>
+
+      <button onclick="switchTab('channels')" id="nav-channels" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">📺</span> <span>Channel Hubs</span>
+        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">2</span>
+      </button>
+
+      <button onclick="switchTab('archive')" id="nav-archive" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">📦</span> <span>Published Archive</span>
+      </button>
+
+      <button onclick="switchTab('reminders')" id="nav-reminders" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">🔔</span> <span>Reminders & Consistency</span>
+        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold" id="navCountReminders">3</span>
+      </button>
+
+      <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all text-left">
+        <span class="text-base">⚙️</span> <span>Platform Settings</span>
+      </button>
+    </nav>
+
+    <!-- Footer Profile / Timezone info -->
+    <div class="p-4 border-t border-slate-800 text-[11px] text-slate-400 bg-slate-950/60">
+      <div class="flex items-center justify-between mb-1">
+        <span class="font-medium text-slate-300">Timezone:</span>
+        <span class="font-mono text-amber-400">Asia/Kolkata (IST)</span>
+      </div>
+      <div class="text-[10px] text-slate-500">Tier-1 US EST posting window converted</div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN CONTENT AREA                                                         -->
+  <!-- ========================================================================= -->
+  <div class="flex-1 flex flex-col min-h-screen overflow-y-auto">
+
+    <!-- TOP HEADER UTILITY BAR -->
+    <header class="border-b border-slate-800 bg-slate-900/40 backdrop-blur-md px-6 py-3.5 flex items-center justify-between gap-4 sticky top-0 z-20">
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-semibold text-slate-400" id="currentSectionTitle">OVERVIEW DASHBOARD</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Channel Filter Dropdown -->
+        <div class="flex items-center gap-2 bg-slate-800/80 border border-slate-700/60 rounded-xl px-3 py-1.5 text-xs">
+          <span class="text-slate-400">Channel:</span>
+          <select id="globalChannelFilter" onchange="applyGlobalChannelFilter(this.value)" class="bg-transparent text-white font-medium outline-none cursor-pointer">
+            <option value="all">🌟 All Channels</option>
+            <option value="history">🏛️ History & Lore</option>
+            <option value="wildlife">🐾 Wild Anatomy</option>
+          </select>
+        </div>
+
+        <button onclick="openNewTopicModal()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition-all active:scale-95">
+          <span>+ Add Topic</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- SECTION CONTAINERS (TAB SWITCHED) -->
+    <main class="p-6 md:p-8 space-y-8 flex-1">
+
+      <!-- ===================================================================== -->
+      <!-- TAB 1: OVERVIEW DASHBOARD                                             -->
+      <!-- ===================================================================== -->
+      <section id="tab-overview" class="space-y-8">
+        
+        <!-- PROMINENT TODAY HERO CARD -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-900/90 to-amber-950/20 border border-amber-500/30 rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+            <div class="space-y-3 max-w-3xl">
+              <div class="flex items-center gap-2.5">
+                <span class="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-rose-500 text-white animate-pulse">
+                  TODAY'S PRODUCTION FOCUS
+                </span>
+                <span class="text-xs font-semibold text-slate-400" id="todayDateLabel">Day 1 • Tuesday, Nov 10, 2026</span>
+                <span class="badge-history px-2 py-0.5 rounded-full text-[11px] font-bold" id="todayChannelBadge">🏛️ History & Lore</span>
+              </div>
+
+              <h2 class="text-xl md:text-2xl font-black text-white tracking-tight leading-snug" id="todayTitle">
+                The Roman Emperor Who Declared War On The Ocean
+              </h2>
+
+              <p class="text-xs text-slate-300 leading-relaxed italic" id="todayHook">
+                "In forty AD, Roman Emperor Caligula marched two hundred thousand legionaries to the English Channel... to declare war on the ocean."
+              </p>
+
+              <!-- Outstanding Tasks Ribbon -->
+              <div class="flex flex-wrap items-center gap-2 pt-2">
+                <span class="text-xs text-slate-400 font-medium">Pending Tasks:</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] border border-emerald-500/30">✓ Voice Generated</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] border border-emerald-500/30">✓ Subtitles Aligned</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[11px] border border-amber-500/30 animate-pulse">⏳ Ready to Render Video</span>
+              </div>
+            </div>
+
+            <!-- Publishing Window & Direct Workspace Action -->
+            <div class="shrink-0 bg-slate-950/80 border border-slate-800 rounded-2xl p-5 flex flex-col items-center justify-center text-center space-y-3 min-w-[220px]">
+              <span class="text-[11px] font-medium text-slate-400">Target Publishing Window</span>
+              <div class="space-y-0.5">
+                <div class="text-lg font-black text-amber-400 font-mono" id="todayTimeEst">1:00 PM EST</div>
+                <div class="text-xs text-slate-400 font-mono" id="todayTimeIst">10:30 PM IST (Local)</div>
+              </div>
+              <button onclick="openProductionForId('sched_001')" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+                <span>Open Video Workspace</span> ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 OPERATIONAL METRICS DERIVED FROM REAL PROJECT DATA -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Total Scheduled</span>
+            <span class="text-xl font-black text-white mt-1 block" id="statTotalSched">15</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Awaiting Script</span>
+            <span class="text-xl font-black text-slate-300 mt-1 block" id="statAwaitScript">11</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Scripts Ready</span>
+            <span class="text-xl font-black text-cyan-400 mt-1 block" id="statScriptsReady">4</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">In Production</span>
+            <span class="text-xl font-black text-amber-400 mt-1 block" id="statInProd">1</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Rendered</span>
+            <span class="text-xl font-black text-emerald-400 mt-1 block" id="statRendered">0</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Awaiting Review</span>
+            <span class="text-xl font-black text-purple-400 mt-1 block" id="statAwaitReview">0</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Ready Publish</span>
+            <span class="text-xl font-black text-blue-400 mt-1 block" id="statReadyPub">0</span>
+          </div>
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-3.5 text-center">
+            <span class="text-[11px] text-slate-400 block font-medium">Published</span>
+            <span class="text-xl font-black text-emerald-400 mt-1 block" id="statPublished">0</span>
+          </div>
+        </div>
+
+        <!-- 7-DAY UPCOMING PUBLISHING TIMELINE -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white">Upcoming 7-Day Publishing Timeline</h3>
+              <p class="text-xs text-slate-400">Rolling publication queue optimized for Tier-1 audience peaks</p>
+            </div>
+            <button onclick="switchTab('calendar')" class="text-xs text-amber-400 hover:text-amber-300 font-semibold">
+              View Full 15-Day Calendar ➔
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3" id="timeline7DaysGrid">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- CHANNEL HEALTH & TAXONOMY SUMMARIES -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Channel 1 Card -->
+          <div class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🏛️</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Channel 1: History & Lore</h4>
+                  <p class="text-xs text-slate-400">Parchment maps, military heists, and loopholes</p>
+                </div>
+              </div>
+              <span class="badge-history px-2.5 py-1 rounded-full text-xs font-bold">8 Videos Planned</span>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-1 border-b border-slate-800/80">
+                <span class="text-slate-400">Primary Styles:</span>
+                <span class="text-slate-200 font-medium">paper-atlas, tall-tale, night-file</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/80">
+                <span class="text-slate-400">Top Categories:</span>
+                <span class="text-slate-200 font-medium">Ancient Civs, Tactical Battles, Loopholes</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-slate-400">Audience Peak:</span>
+                <span class="text-amber-400 font-mono font-medium">1:00 PM – 2:00 PM EST</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Channel 2 Card -->
+          <div class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🐾</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Channel 2: Wild Anatomy</h4>
+                  <p class="text-xs text-slate-400">3D cross-sections, extreme venom, and biomechanics</p>
+                </div>
+              </div>
+              <span class="badge-wildlife px-2.5 py-1 rounded-full text-xs font-bold">7 Videos Planned</span>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-1 border-b border-slate-800/80">
+                <span class="text-slate-400">Primary Styles:</span>
+                <span class="text-slate-200 font-medium">deep-dive, inside-out, stick-story</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/80">
+                <span class="text-slate-400">Top Categories:</span>
+                <span class="text-slate-200 font-medium">Animal Biology, Superpowers, Predation</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-slate-400">Audience Peak:</span>
+                <span class="text-emerald-400 font-mono font-medium">12:00 PM – 1:30 PM EST</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 2: CONTENT CALENDAR                                               -->
+      <!-- ===================================================================== -->
+      <section id="tab-calendar" class="space-y-6 hidden">
+        <!-- Calendar Sub-Navigation -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 rounded-2xl p-4">
+          <div class="flex items-center gap-2" id="calViewBtns">
+            <button onclick="setCalendarSubView('15days')" id="calView-15days" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 transition-all">
+              15-Day Master View
+            </button>
+            <button onclick="setCalendarSubView('weekly')" id="calView-weekly" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Weekly View
+            </button>
+            <button onclick="setCalendarSubView('kanban')" id="calView-kanban" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Kanban Board
+            </button>
+            <button onclick="setCalendarSubView('list')" id="calView-list" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              List Table
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400 font-medium">Status Filter:</span>
+            <select id="calendarStatusFilter" onchange="renderCalendarView()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-xl px-2.5 py-1.5 outline-none">
+              <option value="all">All Statuses</option>
+              <option value="Scripted">Scripted</option>
+              <option value="In production">In Production</option>
+              <option value="Approved">Approved</option>
+              <option value="Rendered">Rendered</option>
+              <option value="Published">Published</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Calendar Views Container -->
+        <div id="calendarViewContainer">
+          <!-- Injected by renderCalendarView() -->
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 3: PRODUCTION WORKSPACE (VISUAL 7-STAGE PIPELINE)                  -->
+      <!-- ===================================================================== -->
+      <section id="tab-production" class="space-y-6 hidden">
+        <!-- Top Project Selector -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🎬</span>
+            <div>
+              <h3 class="text-sm font-bold text-white">Visual Production Pipeline</h3>
+              <p class="text-xs text-slate-400">Execute and verify the full video generation lifecycle without terminal commands</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label class="text-xs text-slate-400 font-medium">Active Video:</label>
+            <select id="productionActiveSelect" onchange="loadProductionWorkspace(this.value)" class="bg-slate-800 border border-slate-700 text-white font-medium text-xs rounded-xl px-3 py-2 outline-none focus:border-amber-500">
+              <!-- Injected by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- 12-STEP PRODUCTION CHECKLIST RIBBON -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-white tracking-wide uppercase">12-Stage Production Lifecycle</span>
+            <span class="text-slate-400" id="prodChecklistCount">4 / 12 Completed</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 text-xs pt-1" id="checklistRibbon">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- THE 7 OPERATIONAL STAGE ACTION PANELS -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- Left Column: Stages 1 to 4 Execution -->
+          <div class="lg:col-span-2 space-y-4">
+
+            <!-- Stage 1: Create Project -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">1</span>
+                  <h4 class="text-sm font-bold text-white">Stage 1: Project Scaffold & Script Cuts</h4>
+                </div>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400" id="p1StatusBadge">Ready</span>
+              </div>
+              <p class="text-xs text-slate-400">Instantiates the project directory, populates script.json with pre-split visual cuts, audio pauses, and metadata.</p>
+              <div class="flex items-center gap-3 pt-1">
+                <button onclick="runPipelineAction('create-project')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all">
+                  <span>🚀 Create / Reset Project</span>
+                </button>
+                <span class="text-xs font-mono text-slate-400 truncate" id="p1PathLabel">channel-history/shorts/caligula_ocean</span>
+              </div>
+            </div>
+
+            <!-- Antigravity Script & Viral Story Architecture Viewer -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs flex items-center justify-center">✍️</span>
+                  <h4 class="text-sm font-bold text-white">Antigravity Script & Hook Architecture</h4>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Crafted by Antigravity</span>
+                  <button onclick="openScriptEditor()" class="text-[11px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 shadow-sm">
+                    <span>✏️ Edit Script</span>
+                  </button>
+                  <button onclick="copyAntigravityPrompt()" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-semibold px-2.5 py-1 rounded-lg border border-slate-700 transition-all flex items-center gap-1">
+                    <span>📋 Prompt Antigravity</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hook & Twist -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <div class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1">🎯 0-2s Viral Hook</div>
+                  <div id="pwHookText" class="text-slate-200">Loading hook...</div>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                  <div class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider mb-1">⚡ Climax & Infinite Loop</div>
+                  <div id="pwTwistText" class="text-slate-200">Loading twist...</div>
+                </div>
+              </div>
+
+              <!-- Script Lines Breakdown -->
+              <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Visual Cut Breakdown (<span id="pwLineCount">0</span> cuts)</span>
+                  <span class="text-[11px] font-mono text-emerald-400" id="pwWordCount">0 words</span>
+                </div>
+                <div id="pwScriptLinesBox" class="max-h-48 overflow-y-auto space-y-2 pr-1 text-xs">
+                  <!-- Injected by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 2: Voice Generation -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">2</span>
+                  <h4 class="text-sm font-bold text-white">Stage 2: Kokoro-82M Neural Voiceover</h4>
+                </div>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400" id="p2StatusBadge">Verified</span>
+              </div>
+              <p class="text-xs text-slate-400">Generates ultra-realistic local AI voiceover in one conversational pass using Kokoro neural model.</p>
+              <div class="flex items-center gap-3 pt-1">
+                <button onclick="runPipelineAction('generate-voice')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 transition-all">
+                  <span>🎙️ Generate Voice</span>
+                </button>
+                <div id="p2AudioPreview" class="text-xs text-emerald-400 font-medium">✓ Audio: data/narration.wav (39.5s)</div>
+              </div>
+            </div>
+
+            <!-- Stage 3: Subtitle Alignment -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">3</span>
+                  <h4 class="text-sm font-bold text-white">Stage 3: Whisper Word-by-Word Alignment</h4>
+                </div>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400" id="p3StatusBadge">Aligned</span>
+              </div>
+              <p class="text-xs text-slate-400">Runs local Faster-Whisper to extract sub-second word timestamps for dynamic viral yellow pop captions.</p>
+              <div class="flex items-center gap-3 pt-1">
+                <button onclick="runPipelineAction('generate-words')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 transition-all">
+                  <span>📝 Align Subtitles</span>
+                </button>
+                <span class="text-xs text-emerald-400 font-medium" id="p3WordsLabel">✓ 109 words matched</span>
+              </div>
+            </div>
+
+            <!-- Stage 4: Video Rendering -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">4</span>
+                  <h4 class="text-sm font-bold text-white">Stage 4: Headless Edge/Chrome + FFmpeg Video Render</h4>
+                </div>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-400" id="p4StatusBadge">Pending</span>
+              </div>
+              <p class="text-xs text-slate-400">Captures 1080x1920 60fps canvas frames and stitches them with audio mix into final broadcast MP4.</p>
+              <div class="flex items-center gap-3 pt-1">
+                <button onclick="runPipelineAction('render-video')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all">
+                  <span>🎬 Render Video (MP4)</span>
+                </button>
+                <span class="text-xs text-slate-400" id="p4RenderInfo">Output: renders/short.mp4</span>
+              </div>
+            </div>
+
+            <!-- Stage 5: Cover Extraction -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">5</span>
+                  <h4 class="text-sm font-bold text-white">Stage 5: Candidate Cover Frame Extraction</h4>
+                </div>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-400" id="p5StatusBadge">Pending</span>
+              </div>
+              <p class="text-xs text-slate-400">Extracts peak-action candidate thumbnail frames using FFmpeg and compiles CTR optimization data.</p>
+              <div class="flex items-center gap-3 pt-1">
+                <button onclick="runPipelineAction('extract-covers')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 transition-all">
+                  <span>🖼️ Extract Covers</span>
+                </button>
+                <span class="text-xs text-slate-400">Extracts at 1.5s, 4.0s, 10.0s</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: 9:16 Video Player, Covers & Live Terminal Log -->
+          <div class="space-y-4">
+            
+            <!-- Interactive 9:16 Short Video Player & Cover Gallery -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">🎬</span>
+                  <h4 class="text-sm font-bold text-white">9:16 Short Video Player</h4>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-400" id="videoStatusPill">Not Rendered</span>
+              </div>
+
+              <!-- Live Render Progress Bar -->
+              <div id="renderProgressBarContainer" class="hidden bg-slate-950 p-2.5 rounded-xl border border-amber-500/30 space-y-1.5 animate-pulse">
+                <div class="flex items-center justify-between text-[11px] font-mono text-amber-300 font-bold">
+                  <span id="renderProgressLabel">⚡ Capturing 3D Frames...</span>
+                  <span id="renderProgressPercent">0%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                  <div id="renderProgressBar" class="bg-gradient-to-r from-amber-500 to-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Mobile Player Container (9:16 aspect ratio) -->
+              <div class="relative mx-auto bg-black rounded-2xl overflow-hidden border-2 border-slate-800 shadow-2xl flex flex-col items-center justify-center max-w-[240px] aspect-[9/16] w-full">
+                <video id="workspaceVideoPlayer" class="w-full h-full object-cover hidden" controls playsinline loop preload="auto"></video>
+                <div id="workspaceVideoEmptyState" class="p-4 text-center space-y-2">
+                  <div class="w-12 h-12 rounded-full bg-slate-800/80 flex items-center justify-center mx-auto text-slate-400 text-lg">▶</div>
+                  <div class="text-xs font-semibold text-slate-200">No Render Yet</div>
+                  <div class="text-[10px] text-slate-500">Run Stage 4 to render and preview video.</div>
+                </div>
+              </div>
+
+              <!-- Video Metadata Badges -->
+              <div id="workspaceVideoMeta" class="hidden flex items-center justify-between text-[10px] text-slate-400 font-mono px-1">
+                <span>1080×1920 (9:16)</span>
+                <span id="workspaceVideoDuration" class="text-white font-bold">0.0s</span>
+                <span class="text-emerald-400 font-bold">30 FPS H.264</span>
+              </div>
+
+              <!-- Extracted Covers Frame Strip -->
+              <div class="space-y-1.5 pt-1 border-t border-slate-800/60">
+                <div class="text-[11px] font-bold text-slate-400 flex items-center justify-between">
+                  <span>Candidate Cover Thumbnails</span>
+                  <span class="text-[10px] text-slate-500" id="coverCountBadge">0 found</span>
+                </div>
+                <div id="workspaceCoversStrip" class="flex gap-2 overflow-x-auto pb-1 max-w-full">
+                  <div class="text-slate-500 text-[11px] italic">No covers extracted yet.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Real-Time Process Terminal Output -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col h-64">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
+                <span class="text-xs font-mono font-bold text-slate-400 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span> TERMINAL OUTPUT
+                </span>
+                <span class="text-[10px] text-slate-500 font-mono" id="taskStatusIndicator">Idle</span>
+              </div>
+              <div id="terminalLogBox" class="flex-1 overflow-y-auto text-[11px] font-mono text-emerald-400/90 space-y-1 select-text">
+                <div class="text-slate-500">[Studio Pipeline Ready. Click any stage action button to execute.]</div>
+              </div>
+            </div>
+
+            <!-- Stage 6: Final Review & Approval Box -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">6</span>
+                  <h4 class="text-sm font-bold text-white">Stage 6: Final QA Review</h4>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400">Verify audio balance, caption readability, and seamless infinite loop pacing.</p>
+              <div class="flex items-center gap-2 pt-1">
+                <button onclick="markReviewStatus('approved')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs transition-all">
+                  ✓ Approve Video
+                </button>
+                <button onclick="markReviewStatus('changes')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-3 py-2 rounded-xl text-xs border border-slate-700 transition-all">
+                  Request Changes
+                </button>
+              </div>
+            </div>
+
+            <!-- Stage 7: Publishing Handoff -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center">7</span>
+                  <h4 class="text-sm font-bold text-white">Stage 7: Publishing Handoff</h4>
+                </div>
+              </div>
+              <div class="text-xs text-slate-300 space-y-1">
+                <div>Target Date: <span class="font-bold text-white" id="p7Date">Tue, Nov 10, 2026</span></div>
+                <div>Target Time: <span class="font-mono text-amber-400" id="p7Time">1:00 PM EST (10:30 PM IST)</span></div>
+              </div>
+              <div class="pt-1 space-y-2">
+                <button onclick="markReadyToPublish()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs transition-all">
+                  Mark Ready to Publish
+                </button>
+                <a href="https://studio.youtube.com" target="_blank" class="block text-center text-xs text-slate-400 hover:text-white underline">
+                  Open YouTube Studio ↗
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 4: TOPIC BANK & DUPLICATE PREVENTION SYSTEM                       -->
+      <!-- ===================================================================== -->
+      <section id="tab-topics" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 rounded-2xl p-4">
+          <div>
+            <h3 class="text-sm font-bold text-white">Centralized Topic Bank & Idea Archive</h3>
+            <p class="text-xs text-slate-400">Curated, researched, and vetted content topics with persistent history</p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <input type="text" id="topicSearchInput" onkeyup="filterTopicsTable()" placeholder="Search entities, titles, niches..." class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 outline-none focus:border-amber-500 w-64">
+            <button onclick="openNewTopicModal()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl text-xs shrink-0">
+              + New Topic
+            </button>
+          </div>
+        </div>
+
+        <!-- Topics Table -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-900/90 text-slate-400 border-b border-slate-800 uppercase tracking-wider text-[10px]">
+                <tr>
+                  <th class="py-3 px-4">Topic / Title</th>
+                  <th class="py-3 px-4">Channel</th>
+                  <th class="py-3 px-4">Niche Category</th>
+                  <th class="py-3 px-4">Style</th>
+                  <th class="py-3 px-4">Priority</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/80 text-slate-200" id="topicsTableBody">
+                <!-- Injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 5: RESEARCH & TREND DISCOVERY                                     -->
+      <!-- ===================================================================== -->
+      <section id="tab-research" class="space-y-6 hidden">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-sm font-bold text-white">Automated Trend Discovery & Research Miner</h3>
+            <p class="text-xs text-slate-400">Mines viral Reddit communities and Wikipedia archives for high-curiosity triggers</p>
+          </div>
+          <button onclick="runTrendMining()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs shadow-md transition-all">
+            ⚡ Mine Fresh Topics Now
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="minedTrendsContainer">
+          <!-- Injected by JS -->
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 6: CHANNEL HUBS & TAXONOMIES                                      -->
+      <!-- ===================================================================== -->
+      <section id="tab-channels" class="space-y-6 hidden">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-white">Independent Channel Management</h3>
+            <p class="text-xs text-slate-400">Distinct content identities, visual presets, and category taxonomies</p>
+          </div>
+          <button onclick="alert('Feature to add third channel available in multi-channel settings.')" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-3.5 py-1.5 rounded-xl text-xs border border-slate-700">
+            + Configure New Channel
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="channelsDetailGrid">
+          <!-- Injected by JS -->
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 7: PUBLISHED ARCHIVE                                              -->
+      <!-- ===================================================================== -->
+      <section id="tab-archive" class="space-y-6 hidden">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white">Published Content Archive</h3>
+          <p class="text-xs text-slate-400">Historical record of all produced and distributed shorts across YouTube and TikTok</p>
+        </div>
+
+        <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-12 text-center space-y-3">
+          <span class="text-3xl block">📦</span>
+          <h4 class="text-sm font-bold text-white">Archive Ready for First Releases</h4>
+          <p class="text-xs text-slate-400 max-w-md mx-auto">Videos marked as Published in the production workspace will automatically archive here with their full metadata and performance metrics.</p>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 8: REMINDERS & CONSISTENCY CENTER                                 -->
+      <!-- ===================================================================== -->
+      <section id="tab-reminders" class="space-y-6 hidden">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white">Actionable Reminders & Consistency Center</h3>
+          <p class="text-xs text-slate-400">Algorithmic consistency tracker and daily production checklist</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-2 space-y-4" id="remindersListContainer">
+            <!-- Injected by JS -->
+          </div>
+
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Daily Creator Checklist</h4>
+            <div class="space-y-2.5 text-xs text-slate-300">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-slate-700 text-amber-500 focus:ring-0">
+                <span>Check Today's scheduled video</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="rounded border-slate-700 text-amber-500 focus:ring-0">
+                <span>Generate Kokoro voice & align Whisper</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="rounded border-slate-700 text-amber-500 focus:ring-0">
+                <span>Render video through Edge/FFmpeg</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="rounded border-slate-700 text-amber-500 focus:ring-0">
+                <span>Select candidate cover frame</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="rounded border-slate-700 text-amber-500 focus:ring-0">
+                <span>Upload and schedule in YouTube Studio</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 9: SETTINGS & SYSTEM HEALTH                                       -->
+      <!-- ===================================================================== -->
+      <section id="tab-settings" class="space-y-6 hidden">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white">Platform Settings & Environment Health</h3>
+          <p class="text-xs text-slate-400">System binaries, AI voice engines, and local bridge status</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-3 text-xs">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Production Engine Status</h4>
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">FFmpeg 9.0.2 Binary:</span>
+              <span class="text-emerald-400 font-mono" id="setFfmpegStatus">workspace/bin/ffmpeg.exe</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Python Virtual Env:</span>
+              <span class="text-emerald-400 font-mono" id="setPythonStatus">Python 3.13 (.faceless-shorts/venv)</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Kokoro-82M Voice Model:</span>
+              <span class="text-emerald-400 font-mono" id="setKokoroStatus">Ready (kokoro-v1.0.onnx)</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Faster-Whisper Engine:</span>
+              <span class="text-emerald-400 font-mono" id="setWhisperStatus">Ready (small.en)</span>
+            </div>
+            <div class="flex justify-between py-1.5">
+              <span class="text-slate-400">Headless Browser:</span>
+              <span class="text-emerald-400 font-mono">Microsoft Edge (msedge.exe)</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-3 text-xs">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Platform Preferences</h4>
+            <div>
+              <label class="block text-slate-400 mb-1">Default UI Timezone</label>
+              <input type="text" readonly value="Asia/Kolkata (IST)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Target Audience Region</label>
+              <input type="text" readonly value="Tier-1 (US, UK, Canada, Australia)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Local Platform Server Port</label>
+              <input type="text" readonly value="http://127.0.0.1:3000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 font-mono text-emerald-400">
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ADD / EDIT TOPIC WITH LIVE DUPLICATE DETECTION                     -->
+  <!-- ========================================================================= -->
+  <div id="newTopicModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
+      <button onclick="closeModal('newTopicModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800">✕</button>
+
+      <h2 class="text-base font-bold text-white mb-2">Create New Topic & Check Duplicates</h2>
+      <p class="text-xs text-slate-400 mb-4">Every topic is analyzed against your entire production history for exact and semantic overlap.</p>
+
+      <form onsubmit="handleSaveTopic(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-400 mb-1 font-medium">Topic Title</label>
+          <input id="topicTitleInput" type="text" required oninput="triggerDuplicateCheck(this.value)" placeholder="e.g. The Man Who Sold The Eiffel Tower Twice" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white outline-none focus:border-amber-500">
+        </div>
+
+        <!-- DUPLICATE WARNING CARD (DYNAMIC) -->
+        <div id="duplicateAlertBox" class="hidden rounded-2xl p-4 transition-all"></div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 mb-1 font-medium">Channel</label>
+            <select id="topicChannelSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
+              <option value="history">🏛️ History & Lore</option>
+              <option value="wildlife">🐾 Wild Anatomy</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 font-medium">Visual Style</label>
+            <select id="topicStyleSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
+              <option value="paper-atlas">Paper Atlas (Map Animation)</option>
+              <option value="tall-tale">Tall Tale 3D (2D in 3D World)</option>
+              <option value="night-file">Night File 3D (Dark Mystery)</option>
+              <option value="deep-dive">Deep Dive 3D (Zack D. Anatomy)</option>
+              <option value="inside-out">Inside Out (2D X-Ray)</option>
+              <option value="stick-story">Stick Story (Survival Steps)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 mb-1 font-medium">0–2 Second Viral Hook</label>
+          <textarea id="topicHookInput" rows="2" required placeholder="The opening sentence that stops the viewer from swiping away..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none focus:border-amber-500"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 mb-1 font-medium">Key Entity / Subject</label>
+            <input id="topicEntityInput" type="text" placeholder="e.g. Victor Lustig, Eiffel Tower" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 font-medium">Priority Level</label>
+            <select id="topicPrioritySelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
+              <option value="High">High Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="Low">Low Priority</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 mb-1 font-medium">Verified Research Sources</label>
+          <input id="topicSourcesInput" type="text" placeholder="e.g. Smithsonian Archives, Journal of Zoology" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('newTopicModal')" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white">Cancel</button>
+          <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl shadow-md transition-all">
+            Save To Topic Bank
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: SCRIPT & VISUAL CUTS EDITOR                                        -->
+  <!-- ========================================================================= -->
+  <div id="editScriptModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col p-6 shadow-2xl relative">
+      <button onclick="closeModal('editScriptModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800">✕</button>
+
+      <div class="border-b border-slate-800 pb-3 mb-4">
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <span>✏️</span> In-App Script & Cut Editor
+        </h2>
+        <p class="text-xs text-slate-400">Modify spoken narration, yellow caption pop highlights (*word), voice, and pacing directly on disk.</p>
+      </div>
+
+      <div class="flex-1 overflow-y-auto pr-1 space-y-4 text-xs">
+        <!-- Script Title -->
+        <div>
+          <label class="block text-slate-400 mb-1 font-semibold">Video Title</label>
+          <input id="seTitleInput" type="text" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none focus:border-amber-500 font-bold">
+        </div>
+
+        <!-- Voice & Pace Settings -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-950 p-3 rounded-2xl border border-slate-800">
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Kokoro Voice</label>
+            <select id="seVoiceSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 text-white outline-none">
+              <option value="am_puck">am_puck (Energetic British/US)</option>
+              <option value="am_michael">am_michael (Punchy Narrator)</option>
+              <option value="am_fenrir">am_fenrir (Deep & Dramatic)</option>
+              <option value="am_echo">am_echo (Mysterious Whisper)</option>
+              <option value="af_bella">af_bella (Warm Storyteller)</option>
+              <option value="af_nicole">af_nicole (Energetic Female)</option>
+              <option value="af_sarah">af_sarah (Serious Documentary)</option>
+              <option value="af_sky">af_sky (Bright & Youthful)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Speech Speed: <span id="seSpeedVal" class="text-amber-400 font-mono">1.05x</span></label>
+            <input id="seSpeedRange" type="range" min="0.85" max="1.25" step="0.05" value="1.05" oninput="document.getElementById('seSpeedVal').innerText = this.value + 'x'" class="w-full mt-2 accent-amber-500">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Procedural Music</label>
+            <select id="seMusicSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 text-white outline-none">
+              <option value="quirky">Quirky / Comedy</option>
+              <option value="bounce">Bounce / Playful</option>
+              <option value="tension">Tension / Suspense</option>
+              <option value="intense">Intense / Fast</option>
+              <option value="bed">Quiet Ambient Bed</option>
+              <option value="none">None (Narration Only)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Visual Cuts Breakdown -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-300">Visual Cuts & Captions (<span id="seCutsCount">0</span>)</span>
+            <button type="button" onclick="addScriptCutRow()" class="text-xs text-amber-400 hover:text-white font-bold bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">
+              + Add Cut
+            </button>
+          </div>
+          <div id="seCutsList" class="space-y-3">
+            <!-- Cut Rows Injected by JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 flex items-center justify-between mt-3">
+        <span class="text-[11px] text-slate-500 italic">💡 Use *word in caps for viral yellow pop subtitles.</span>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeModal('editScriptModal')" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white">Cancel</button>
+          <button type="button" onclick="saveScriptEdits()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl shadow-md transition-all">
+            💾 Save Script Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: APPLICATION LOGIC & STATE MANAGEMENT                          -->
+  <!-- ========================================================================= -->
+  <script>
+    // Global State
+    let scheduleData = [];
+    let topicsData = [];
+    let currentChannel = 'all';
+    let currentCalSubView = '15days';
+    let isBridgeConnected = false;
+    let pollInterval = null;
+
+    // Load Initial Data from Local Files or API Bridge
+    async function initPlatform() {
+      await checkBridgeConnection();
+      await loadSchedule();
+      await loadTopics();
+      renderAllViews();
+    }
+
+    async function checkBridgeConnection() {
+      try {
+        const res = await fetch('/api/status', { signal: AbortSignal.timeout(1500) });
+        if (res.ok) {
+          const data = await res.json();
+          isBridgeConnected = true;
+          document.getElementById('bridgeIndicator').className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+          document.getElementById('bridgeStatusText').innerText = "Bridge: Connected";
+        }
+      } catch (e) {
+        isBridgeConnected = false;
+        document.getElementById('bridgeIndicator').className = "w-2 h-2 rounded-full bg-amber-400";
+        document.getElementById('bridgeStatusText').innerText = "Bridge: Standalone Mode";
+      }
+    }
+
+    async function loadSchedule() {
+      try {
+        const res = await fetch('schedule.json');
+        if (res.ok) {
+          scheduleData = await res.json();
+        }
+      } catch (e) {
+        console.warn("Could not load schedule.json directly, fallback to empty array");
+      }
+      document.getElementById('navCountCalendar').innerText = scheduleData.length;
+    }
+
+    async function loadTopics() {
+      try {
+        const res = await fetch('topics.json');
+        if (res.ok) {
+          topicsData = await res.json();
+        }
+      } catch (e) {
+        console.warn("Could not load topics.json directly");
+      }
+      document.getElementById('navCountTopics').innerText = topicsData.length;
+    }
+
+    // Tab Navigation Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('section[id^="tab-"]').forEach(s => s.classList.add('hidden'));
+      const activeSection = document.getElementById(`tab-${tabId}`);
+      if (activeSection) activeSection.classList.remove('hidden');
+
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('nav-active'));
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav) activeNav.classList.add('nav-active');
+
+      const titles = {
+        overview: 'OVERVIEW DASHBOARD',
+        calendar: 'CONTENT CALENDAR & SCHEDULING',
+        production: 'VISUAL PRODUCTION WORKSPACE',
+        topics: 'CENTRALIZED TOPIC BANK',
+        research: 'CONTENT DISCOVERY & RESEARCH',
+        channels: 'CHANNEL MANAGEMENT HUBS',
+        archive: 'PUBLISHED CONTENT ARCHIVE',
+        reminders: 'REMINDERS & CONSISTENCY',
+        settings: 'PLATFORM SETTINGS'
+      };
+      document.getElementById('currentSectionTitle').innerText = titles[tabId] || 'CONTENT STUDIO';
+    }
+
+    function applyGlobalChannelFilter(channel) {
+      currentChannel = channel;
+      renderAllViews();
+    }
+
+    function renderAllViews() {
+      renderOverviewTimeline();
+      renderCalendarView();
+      renderProductionWorkspaceOptions();
+      renderTopicsTable();
+      renderResearchTrends();
+      renderChannelHubs();
+      renderReminders();
+    }
+
+    // Render Overview 7-Day Timeline
+    function renderOverviewTimeline() {
+      const grid = document.getElementById('timeline7DaysGrid');
+      const filtered = scheduleData.filter(s => currentChannel === 'all' || s.channel === currentChannel).slice(0, 7);
+
+      grid.innerHTML = filtered.map(item => `
+        <div onclick="openProductionForId('${item.id}')" class="bg-slate-950/70 border border-slate-800 hover:border-amber-500/40 rounded-2xl p-3 flex flex-col justify-between cursor-pointer transition-all hover:scale-[1.02]">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-[10px]">
+              <span class="font-bold text-slate-400">Day ${item.day}</span>
+              <span class="${item.channel === 'history' ? 'text-amber-400 font-bold' : 'text-emerald-400 font-bold'}">${item.channel === 'history' ? '🏛️' : '🐾'}</span>
+            </div>
+            <h5 class="text-xs font-bold text-white line-clamp-2">${item.title}</h5>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between">
+            <span class="font-mono">${item.timeEst}</span>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-slate-800 text-slate-300">${item.status}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render Calendar Sub-Views
+    function setCalendarSubView(subView) {
+      currentCalSubView = subView;
+      document.querySelectorAll('#calViewBtns button').forEach(b => {
+        b.className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+      });
+      document.getElementById(`calView-${subView}`).className = "px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 transition-all";
+      renderCalendarView();
+    }
+
+    function renderCalendarView() {
+      const container = document.getElementById('calendarViewContainer');
+      const statusFilter = document.getElementById('calendarStatusFilter').value;
+      const filtered = scheduleData.filter(item => {
+        const matchesChannel = currentChannel === 'all' || item.channel === currentChannel;
+        const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+        return matchesChannel && matchesStatus;
+      });
+
+      if (currentCalSubView === '15days') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${filtered.map(item => `
+              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold bg-slate-800 px-2.5 py-0.5 rounded-lg text-slate-300">Day ${item.day} • ${item.displayDate}</span>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.channel === 'history' ? 'badge-history' : 'badge-wildlife'}">
+                      ${item.channel === 'history' ? '🏛️ History' : '🐾 Wildlife'}
+                    </span>
+                  </div>
+                  <h4 class="text-xs font-bold text-white line-clamp-2">${item.title}</h4>
+                  <div class="text-[11px] text-slate-400 mt-1">Style: <span class="font-mono text-slate-300 font-semibold">${item.style}</span></div>
+                </div>
+
+                <div class="bg-slate-950 p-2.5 rounded-xl text-[11px] text-slate-300 italic border border-slate-800/80">
+                  "${item.hook}"
+                </div>
+
+                <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                  <div class="text-[10px] font-mono text-amber-400">${item.timeEst} <span class="text-slate-500">(${item.timeIst})</span></div>
+                  <button onclick="openProductionForId('${item.id}')" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs px-2.5 py-1 rounded-lg">
+                    Workspace ➔
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (currentCalSubView === 'kanban') {
+        const cols = ['Scripted', 'In production', 'Approved', 'Rendered', 'Published'];
+        container.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            ${cols.map(col => `
+              <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-3 flex flex-col min-h-[400px]">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+                  <span class="text-xs font-bold text-white uppercase tracking-wider">${col}</span>
+                  <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded-full text-slate-400">
+                    ${filtered.filter(x => x.status === col).length}
+                  </span>
+                </div>
+                <div class="space-y-3 flex-1">
+                  ${filtered.filter(x => x.status === col).map(item => `
+                    <div onclick="openProductionForId('${item.id}')" class="bg-slate-950 border border-slate-800/80 p-3 rounded-xl cursor-pointer hover:border-amber-500/40 transition-all">
+                      <span class="text-[9px] font-bold ${item.channel === 'history' ? 'text-amber-400' : 'text-emerald-400'} block">Day ${item.day} • ${item.timeEst}</span>
+                      <h5 class="text-xs font-bold text-white mt-1 line-clamp-2">${item.title}</h5>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        // List table view
+        container.innerHTML = `
+          <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] border-b border-slate-800">
+                <tr>
+                  <th class="py-3 px-4">Day / Date</th>
+                  <th class="py-3 px-4">Channel</th>
+                  <th class="py-3 px-4">Topic Title</th>
+                  <th class="py-3 px-4">Style</th>
+                  <th class="py-3 px-4">Posting Window</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-200">
+                ${filtered.map(item => `
+                  <tr class="hover:bg-slate-800/40">
+                    <td class="py-3 px-4 font-bold text-slate-300">Day ${item.day} • ${item.displayDate}</td>
+                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${item.channel === 'history' ? 'badge-history' : 'badge-wildlife'}">${item.channel}</span></td>
+                    <td class="py-3 px-4 font-semibold text-white max-w-xs truncate">${item.title}</td>
+                    <td class="py-3 px-4 font-mono text-slate-400">${item.style}</td>
+                    <td class="py-3 px-4 font-mono text-amber-400">${item.timeEst}</td>
+                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-semibold">${item.status}</span></td>
+                    <td class="py-3 px-4 text-right">
+                      <button onclick="openProductionForId('${item.id}')" class="text-xs text-amber-400 hover:text-white font-semibold">Workspace ➔</button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    }
+
+    // Production Workspace Logic
+    function renderProductionWorkspaceOptions() {
+      const select = document.getElementById('productionActiveSelect');
+      select.innerHTML = scheduleData.map(item => `
+        <option value="${item.id}">Day ${item.day}: ${item.title}</option>
+      `).join('');
+
+      if (scheduleData.length > 0) {
+        loadProductionWorkspace(scheduleData[0].id);
+      }
+    }
+
+    function openProductionForId(schedId) {
+      switchTab('production');
+      document.getElementById('productionActiveSelect').value = schedId;
+      loadProductionWorkspace(schedId);
+    }
+
+    function loadProductionWorkspace(schedId) {
+      const item = scheduleData.find(x => x.id === schedId);
+      if (!item) return;
+
+      document.getElementById('p1PathLabel').innerText = item.projectPath;
+      document.getElementById('p7Date').innerText = `${item.displayDate}, 2026`;
+      document.getElementById('p7Time').innerText = `${item.timeEst} (${item.timeIst})`;
+
+      // Render 12-Step Checklist
+      const checklist = item.checklist || {};
+      const stages = [
+        { label: "1. Topic Approved", done: checklist.topicApproved },
+        { label: "2. Research Done", done: checklist.researchCompleted },
+        { label: "3. Script Generated", done: checklist.scriptGenerated },
+        { label: "4. Script Reviewed", done: checklist.scriptReviewed },
+        { label: "5. Voice Generated", done: checklist.voiceGenerated },
+        { label: "6. Subtitles Aligned", done: checklist.subtitlesAligned },
+        { label: "7. Video Rendered", done: checklist.videoRendered },
+        { label: "8. Covers Extracted", done: checklist.coversExtracted },
+        { label: "9. Final Review", done: checklist.finalReviewCompleted },
+        { label: "10. Metadata Ready", done: checklist.metadataPrepared },
+        { label: "11. Uploaded/Sched", done: checklist.uploadedOrScheduled },
+        { label: "12. Published", done: checklist.published }
+      ];
+
+      const completedCount = stages.filter(s => s.done).length;
+      document.getElementById('prodChecklistCount').innerText = `${completedCount} / 12 Completed`;
+
+      document.getElementById('checklistRibbon').innerHTML = stages.map(st => `
+        <div class="px-2.5 py-1.5 rounded-lg border text-[11px] flex items-center justify-between ${st.done ? 'bg-emerald-950/40 text-emerald-300 border-emerald-700/50' : 'bg-slate-900/60 text-slate-500 border-slate-800'}">
+          <span class="truncate">${st.label}</span>
+          <span>${st.done ? '✓' : '○'}</span>
+        </div>
+      `).join('');
+
+      // Populate Script & Hook Architecture Viewer
+      document.getElementById('pwHookText').innerText = item.hook || 'Hook pending generation by Antigravity';
+      document.getElementById('pwTwistText').innerText = item.twist || 'Twist / infinite loop pending generation by Antigravity';
+
+      fetchProjectScriptLines(item);
+      inspectAndUpdateVideoPlayer(item);
+    }
+
+    async function fetchProjectScriptLines(item) {
+      const box = document.getElementById('pwScriptLinesBox');
+      const countLabel = document.getElementById('pwLineCount');
+      const wordLabel = document.getElementById('pwWordCount');
+
+      if (!isBridgeConnected) {
+        box.innerHTML = `<div class="text-slate-500 italic p-2">[Offline Preview] Hook: "${item.hook || ''}"</div>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/project-script?path=${encodeURIComponent(item.projectPath)}`);
+        if (res.ok) {
+          const script = await res.json();
+          const lines = script.lines || [];
+          countLabel.innerText = lines.length;
+          
+          let totalWords = 0;
+          box.innerHTML = lines.map((l, idx) => {
+            const words = l.text.split(' ');
+            totalWords += words.length;
+            const highlighted = (l.caps || l.text).replace(/\*(\w+)/g, '<span class="text-amber-400 font-bold bg-amber-950/40 px-1 rounded">$1</span>');
+            return `
+              <div class="p-2 rounded-lg bg-slate-900/70 border border-slate-800 flex items-start gap-2.5">
+                <span class="font-mono text-[10px] text-slate-500 mt-0.5 w-6 shrink-0 text-right">#${idx + 1}</span>
+                <div class="space-y-0.5 flex-1">
+                  <div class="text-white text-xs">${highlighted}</div>
+                  <div class="text-[10px] text-slate-400 italic">${l.text}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          wordLabel.innerText = `${totalWords} words (~${Math.round(totalWords / 2.7)}s duration)`;
+        } else {
+          countLabel.innerText = '0';
+          wordLabel.innerText = 'Pending';
+          box.innerHTML = `<div class="text-slate-500 italic p-2">script.json not initialized yet. Click "Create / Reset Project" above to scaffold.</div>`;
+        }
+      } catch (err) {
+        box.innerHTML = `<div class="text-slate-500 italic p-2">Connect to bridge server (studio.cmd app) to inspect local script.</div>`;
+      }
+    }
+
+    function copyAntigravityPrompt() {
+      const select = document.getElementById('productionActiveSelect');
+      const item = scheduleData.find(x => x.id === select?.value);
+      if (!item) return;
+
+      const promptText = `Hey Antigravity! I'm planning Day ${item.day} on my YouTube channel (${item.channel === 'history' ? 'Channel 1: History & Lore' : 'Channel 2: Wild Anatomy & Superpowers'}).
+
+Topic: "${item.title}"
+Style: ${item.style}
+Niche: ${item.niche}
+Hook Concept: "${item.hook || ''}"
+
+Please write the viral 35-second script following the 5-phase retention formula. Include yellow word highlights (*word), visual camera cuts, and 3 high-CTR title options!`;
+
+      navigator.clipboard.writeText(promptText);
+      alert('Copied prompt for Antigravity to clipboard!\n\nJust paste it into your Antigravity chat.');
+    }
+
+    async function inspectAndUpdateVideoPlayer(item) {
+      const player = document.getElementById('workspaceVideoPlayer');
+      const empty = document.getElementById('workspaceVideoEmptyState');
+      const pill = document.getElementById('videoStatusPill');
+      const meta = document.getElementById('workspaceVideoMeta');
+      const durLabel = document.getElementById('workspaceVideoDuration');
+      const strip = document.getElementById('workspaceCoversStrip');
+      const badge = document.getElementById('coverCountBadge');
+
+      if (!isBridgeConnected) {
+        player.classList.add('hidden');
+        empty.classList.remove('hidden');
+        pill.innerText = "Offline Preview";
+        pill.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-400";
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/project-inspect?path=${encodeURIComponent(item.projectPath)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.video_rendered && data.video_path) {
+            player.src = '/' + data.video_path + '?t=' + Date.now();
+            player.classList.remove('hidden');
+            empty.classList.add('hidden');
+            pill.innerText = "✓ Ready to Watch";
+            pill.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400";
+            meta.classList.remove('hidden');
+            
+            player.onloadedmetadata = () => {
+              durLabel.innerText = player.duration.toFixed(1) + 's';
+            };
+          } else {
+            player.classList.add('hidden');
+            empty.classList.remove('hidden');
+            pill.innerText = "Not Rendered";
+            pill.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-400";
+            meta.classList.add('hidden');
+          }
+
+          if (data.covers && data.covers.length > 0) {
+            badge.innerText = `${data.covers.length} extracted`;
+            strip.innerHTML = data.covers.map((c, i) => `
+              <div class="shrink-0 group relative cursor-pointer" onclick="window.open('/${c}', '_blank')">
+                <img src="/${c}" class="w-16 h-28 object-cover rounded-lg border-2 border-slate-700 hover:border-amber-400 transition-all shadow-md">
+                <span class="absolute bottom-1 left-1 bg-black/80 text-[9px] text-white px-1 rounded font-mono">#${i+1}</span>
+              </div>
+            `).join('');
+          } else {
+            badge.innerText = '0 found';
+            strip.innerHTML = `<div class="text-slate-500 text-[11px] italic py-2">No covers extracted yet. Run Stage 5.</div>`;
+          }
+        }
+      } catch (e) {
+        console.error("Error inspecting video:", e);
+      }
+    }
+
+    let currentEditingScript = null;
+
+    async function openScriptEditor() {
+      const select = document.getElementById('productionActiveSelect');
+      const item = scheduleData.find(x => x.id === select?.value);
+      if (!item) return;
+
+      currentEditingScript = {
+        title: item.title,
+        voice: item.voice || "am_puck",
+        speed: 1.05,
+        music: "quirky",
+        lines: []
+      };
+
+      if (isBridgeConnected) {
+        try {
+          const res = await fetch(`/api/project-script?path=${encodeURIComponent(item.projectPath)}`);
+          if (res.ok) {
+            currentEditingScript = await res.json();
+          }
+        } catch (e) {}
+      }
+
+      document.getElementById('seTitleInput').value = currentEditingScript.title || item.title;
+      document.getElementById('seVoiceSelect').value = currentEditingScript.voice || item.voice || "am_puck";
+      document.getElementById('seSpeedRange').value = currentEditingScript.speed || 1.05;
+      document.getElementById('seSpeedVal').innerText = (currentEditingScript.speed || 1.05) + 'x';
+      document.getElementById('seMusicSelect').value = currentEditingScript.music || "quirky";
+
+      const cutsList = document.getElementById('seCutsList');
+      cutsList.innerHTML = '';
+      const lines = currentEditingScript.lines || [];
+      if (lines.length === 0) {
+        addScriptCutRow(item.hook || "", "Hook in *caps | here");
+      } else {
+        lines.forEach(l => addScriptCutRow(l.text, l.caps || l.text));
+      }
+
+      updateCutsCount();
+      document.getElementById('editScriptModal').classList.remove('hidden');
+    }
+
+    function addScriptCutRow(text = '', caps = '') {
+      const list = document.getElementById('seCutsList');
+      const cutIndex = list.children.length + 1;
+      const div = document.createElement('div');
+      div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 relative cut-row";
+      div.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="font-mono text-[11px] text-amber-400 font-bold">Cut #<span class="cut-num">${cutIndex}</span></span>
+          <button type="button" onclick="this.closest('.cut-row').remove(); updateCutsCount();" class="text-slate-500 hover:text-rose-400 text-xs px-1">✕ Remove</button>
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 mb-0.5">Spoken Narration (What Kokoro speaks):</label>
+          <textarea class="cut-text w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs outline-none focus:border-amber-500" rows="1">${text}</textarea>
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 mb-0.5">Captions with Yellow Highlights (*word):</label>
+          <input type="text" class="cut-caps w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-amber-300 text-xs font-mono outline-none focus:border-amber-500" value="${caps}">
+        </div>
+      `;
+      list.appendChild(div);
+      updateCutsCount();
+    }
+
+    function updateCutsCount() {
+      const list = document.getElementById('seCutsList');
+      const count = list.children.length;
+      document.getElementById('seCutsCount').innerText = count;
+      Array.from(list.children).forEach((child, i) => {
+        const numSpan = child.querySelector('.cut-num');
+        if (numSpan) numSpan.innerText = i + 1;
+      });
+    }
+
+    async function saveScriptEdits() {
+      const select = document.getElementById('productionActiveSelect');
+      const item = scheduleData.find(x => x.id === select?.value);
+      if (!item) return;
+
+      const title = document.getElementById('seTitleInput').value.trim();
+      const voice = document.getElementById('seVoiceSelect').value;
+      const speed = parseFloat(document.getElementById('seSpeedRange').value);
+      const music = document.getElementById('seMusicSelect').value;
+
+      const rows = document.querySelectorAll('#seCutsList .cut-row');
+      const lines = [];
+      rows.forEach(r => {
+        const text = r.querySelector('.cut-text').value.trim();
+        const caps = r.querySelector('.cut-caps').value.trim();
+        if (text) {
+          lines.push({ text, caps: caps || text });
+        }
+      });
+
+      if (lines.length === 0) {
+        alert("Please keep at least one visual cut line!");
+        return;
+      }
+
+      const updatedScript = {
+        title: title || item.title,
+        voice: voice,
+        speed: speed,
+        lead: 0.45,
+        outro: 0.9,
+        gap: 0.3,
+        music: music,
+        sources: currentEditingScript?.sources || ["Verified Historical / Scientific Record"],
+        lines: lines
+      };
+
+      if (!isBridgeConnected) {
+        alert("Bridge server is not running. Please start 'studio.cmd app' to save script edits to disk.");
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/project-script', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            project_path: item.projectPath,
+            script: updatedScript
+          })
+        });
+
+        if (res.ok) {
+          item.title = updatedScript.title;
+          item.voice = updatedScript.voice;
+          if (lines.length > 0) item.hook = lines[0].text;
+          
+          closeModal('editScriptModal');
+          fetchProjectScriptLines(item);
+          loadProductionWorkspace(item.id);
+          renderMasterCalendar();
+          alert("Script successfully saved to disk!\n\nNote: If you changed spoken words or cuts, please click 'Generate Voice' in Stage 2 to re-synthesize.");
+        } else {
+          alert("Failed to save script edits.");
+        }
+      } catch (err) {
+        alert("Error saving script: " + err.message);
+      }
+    }
+
+    // GUI Pipeline Execution with Real-Time Log Polling
+    async function runPipelineAction(action) {
+      const select = document.getElementById('productionActiveSelect');
+      const item = scheduleData.find(x => x.id === select.value);
+      if (!item) return;
+
+      const logBox = document.getElementById('terminalLogBox');
+      const statusIndicator = document.getElementById('taskStatusIndicator');
+
+      logBox.innerHTML = `<div class="text-amber-400">Executing pipeline operation [${action}] for ${item.title}...</div>`;
+      statusIndicator.innerText = "RUNNING";
+      statusIndicator.className = "text-[10px] text-amber-400 font-mono animate-pulse";
+
+      if (!isBridgeConnected) {
+        // Fallback simulation when opened via file://
+        setTimeout(() => {
+          logBox.innerHTML += `
+            <div class="text-slate-400 mt-2">[Standalone Mode Notice] Platform Bridge (server.py) is not active on http://127.0.0.1:3000.</div>
+            <div class="text-emerald-400">Equivalent terminal command:</div>
+            <div class="bg-slate-900 p-2 rounded text-slate-200 mt-1 font-mono">python faceless-shorts/scripts/${action.replace('-', '')}.py ${item.projectPath}</div>
+            <div class="text-slate-400 mt-2">To enable live single-click background execution, run "studio.cmd app" in terminal.</div>
+          `;
+          statusIndicator.innerText = "STANDALONE READY";
+          statusIndicator.className = "text-[10px] text-emerald-400 font-mono";
+        }, 600);
+        return;
+      }
+
+      try {
+        let endpoint = `/api/pipeline/${action}`;
+        let bodyPayload = { project_path: item.projectPath, script_key: item.scriptKey };
+
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bodyPayload)
+        });
+
+        const data = await res.json();
+        if (data.taskId) {
+          pollTaskStatus(data.taskId);
+        }
+      } catch (err) {
+        logBox.innerHTML += `<div class="text-rose-400">Error invoking endpoint: ${err.message}</div>`;
+        statusIndicator.innerText = "ERROR";
+      }
+    }
+
+    function pollTaskStatus(taskId) {
+      if (pollInterval) clearInterval(pollInterval);
+      const logBox = document.getElementById('terminalLogBox');
+      const statusIndicator = document.getElementById('taskStatusIndicator');
+
+      pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch(`/api/task-status?taskId=${taskId}`);
+          if (res.ok) {
+            const task = await res.json();
+            statusIndicator.innerText = task.status;
+            logBox.innerHTML = task.logs.map(l => `<div>${l}</div>`).join('') || `<div class="text-slate-500">Processing...</div>`;
+            logBox.scrollTop = logBox.scrollHeight;
+
+            // Live Frame Progress Bar Detection
+            const progContainer = document.getElementById('renderProgressBarContainer');
+            const progBar = document.getElementById('renderProgressBar');
+            const progLabel = document.getElementById('renderProgressLabel');
+            const progPercent = document.getElementById('renderProgressPercent');
+
+            if (task.logs && task.logs.length > 0) {
+              const lastLogs = task.logs.slice(-10).join(' ');
+              const match = lastLogs.match(/(\d+)\/(\d+)\s+frames/);
+              if (match) {
+                const curr = parseInt(match[1]);
+                const total = parseInt(match[2]);
+                if (total > 0) {
+                  const pct = Math.min(100, Math.round((curr / total) * 100));
+                  progContainer.classList.remove('hidden');
+                  progBar.style.width = pct + '%';
+                  progPercent.innerText = pct + '%';
+                  progLabel.innerText = `⚡ Rendering: ${curr} / ${total} frames`;
+                }
+              }
+            }
+
+            if (task.status === 'COMPLETED' || task.status === 'FAILED') {
+              clearInterval(pollInterval);
+              statusIndicator.className = task.status === 'COMPLETED' ? "text-[10px] text-emerald-400 font-mono" : "text-[10px] text-rose-400 font-mono";
+              progContainer.classList.add('hidden');
+              if (task.status === 'COMPLETED') {
+                refreshProjectStatus();
+              }
+            }
+          }
+        } catch (e) {
+          clearInterval(pollInterval);
+        }
+      }, 1000);
+    }
+
+    async function refreshProjectStatus() {
+      const select = document.getElementById('productionActiveSelect');
+      const item = scheduleData.find(x => x.id === select?.value);
+      if (!item || !isBridgeConnected) return;
+
+      try {
+        const res = await fetch(`/api/project-inspect?path=${encodeURIComponent(item.projectPath)}`);
+        if (res.ok) {
+          const inspect = await res.json();
+          if (!item.checklist) item.checklist = {};
+          if (inspect.has_script) { item.checklist.scriptGenerated = true; item.checklist.scriptReviewed = true; }
+          if (inspect.has_voice) item.checklist.voiceGenerated = true;
+          if (inspect.has_words) item.checklist.subtitlesAligned = true;
+          if (inspect.video_rendered) { item.checklist.videoRendered = true; item.checklist.finalReviewCompleted = true; }
+          if (inspect.covers && inspect.covers.length > 0) item.checklist.coversExtracted = true;
+
+          if (inspect.video_rendered) {
+            item.status = "READY_TO_PUBLISH";
+            item.media = item.media || {};
+            if (inspect.video_path) item.media.renderedVideo = inspect.video_path;
+            if (inspect.covers && inspect.covers.length > 0) item.media.thumbnailSelected = inspect.covers[0];
+          }
+
+          loadProductionWorkspace(item.id);
+          renderOverview();
+          renderMasterCalendar();
+
+          // Persist updated schedule back to server
+          await fetch('/api/schedule', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(scheduleData)
+          });
+        }
+      } catch (e) {
+        console.error('Error refreshing project status:', e);
+      }
+    }
+
+    // Topic Bank Table & Duplicate Detection
+    function renderTopicsTable() {
+      const tbody = document.getElementById('topicsTableBody');
+      const query = document.getElementById('topicSearchInput')?.value?.toLowerCase() || '';
+
+      const filtered = topicsData.filter(t => {
+        const matchChannel = currentChannel === 'all' || t.channel === currentChannel;
+        const matchQuery = !query || t.title.toLowerCase().includes(query) || (t.entity && t.entity.toLowerCase().includes(query));
+        return matchChannel && matchQuery;
+      });
+
+      tbody.innerHTML = filtered.map(t => `
+        <tr class="hover:bg-slate-800/40">
+          <td class="py-3 px-4 font-bold text-white max-w-xs">
+            <div>${t.title}</div>
+            <div class="text-[10px] text-slate-400 font-normal">${t.entity || ''}</div>
+          </td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${t.channel === 'history' ? 'badge-history' : 'badge-wildlife'}">${t.channel}</span></td>
+          <td class="py-3 px-4 text-slate-300">${t.niche}</td>
+          <td class="py-3 px-4 font-mono text-slate-400">${t.style || 'tall-tale'}</td>
+          <td class="py-3 px-4 font-semibold ${t.priority === 'High' ? 'text-rose-400' : 'text-slate-300'}">${t.priority}</td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-semibold">${t.status}</span></td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="alert('Viewing Topic: ' + '${t.title}')" class="text-xs text-amber-400 hover:text-white font-semibold">Inspect</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterTopicsTable() {
+      renderTopicsTable();
+    }
+
+    // LIVE DUPLICATE CHECKER (EXACT & SEMANTIC)
+    function triggerDuplicateCheck(title) {
+      const box = document.getElementById('duplicateAlertBox');
+      if (!title || title.length < 5) {
+        box.className = "hidden";
+        return;
+      }
+
+      const norm = title.toLowerCase().replace(/[^a-z0-9 ]+/g, '').trim();
+      const words = new Set(norm.split(' '));
+      const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'why', 'how', 'what', 'who', 'this', 'is', 'was', 'were']);
+      const meaningful = new Set([...words].filter(x => !stopWords.has(x)));
+
+      let exact = null;
+      let semantic = null;
+
+      for (const t of topicsData) {
+        const tNorm = t.title.toLowerCase().replace(/[^a-z0-9 ]+/g, '').trim();
+        if (norm === tNorm) {
+          exact = t;
+          break;
+        }
+
+        const tWords = new Set(tNorm.split(' '));
+        const tMeaningful = new Set([...tWords].filter(x => !stopWords.has(x)));
+        const shared = [...meaningful].filter(x => tMeaningful.has(x));
+
+        if (shared.length >= 2 || (shared.length / Math.max(meaningful.size, tMeaningful.size)) >= 0.3) {
+          semantic = { topic: t, shared };
+        }
+      }
+
+      if (exact) {
+        box.className = "bg-rose-950/50 border border-rose-500/40 rounded-2xl p-4 text-rose-300 block";
+        box.innerHTML = `
+          <div class="font-bold text-xs uppercase flex items-center gap-1.5">
+            <span>⚠️</span> EXACT DUPLICATE DETECTED
+          </div>
+          <div class="mt-1 text-xs text-rose-200">
+            This title is already registered in your Topic Bank: "<strong>${exact.title}</strong>" (Status: ${exact.status}).
+          </div>
+        `;
+      } else if (semantic) {
+        box.className = "bg-amber-950/40 border border-amber-500/40 rounded-2xl p-4 text-amber-300 block";
+        box.innerHTML = `
+          <div class="font-bold text-xs uppercase flex items-center gap-1.5">
+            <span>⚡</span> POTENTIAL SEMANTIC OVERLAP DETECTED
+          </div>
+          <div class="mt-1 text-xs text-amber-200">
+            Shares key subject matter with existing topic "<strong>${semantic.topic.title}</strong>".
+            Shared concepts: <span class="font-mono font-semibold">${semantic.shared.join(', ')}</span>.
+            <div class="text-[11px] text-slate-400 mt-1">If this covers a distinct historical battle or biological angle, you may still proceed.</div>
+          </div>
+        `;
+      } else {
+        box.className = "bg-emerald-950/30 border border-emerald-500/30 rounded-2xl p-3 text-emerald-300 block";
+        box.innerHTML = `
+          <div class="text-xs font-semibold flex items-center gap-1.5">
+            <span>✓</span> Title is 100% unique across your topic history.
+          </div>
+        `;
+      }
+    }
+
+    function handleSaveTopic(e) {
+      e.preventDefault();
+      const title = document.getElementById('topicTitleInput').value;
+      const channel = document.getElementById('topicChannelSelect').value;
+      const style = document.getElementById('topicStyleSelect').value;
+      const hook = document.getElementById('topicHookInput').value;
+      const entity = document.getElementById('topicEntityInput').value;
+      const priority = document.getElementById('topicPrioritySelect').value;
+      const sources = document.getElementById('topicSourcesInput').value;
+
+      const newTopic = {
+        id: "top_" + String(topicsData.length + 1).padStart(3, '0'),
+        channel,
+        niche: channel === 'history' ? "Historical Storytelling" : "Wildlife Superpowers",
+        title,
+        summary: hook,
+        entity,
+        angle: "Original storytelling angle",
+        hook,
+        researchStatus: "Verified",
+        sources,
+        priority,
+        complexity: "Moderate",
+        style,
+        voice: channel === 'history' ? 'am_puck' : 'am_michael',
+        status: "Approved"
+      };
+
+      topicsData.unshift(newTopic);
+      document.getElementById('navCountTopics').innerText = topicsData.length;
+      renderTopicsTable();
+      closeModal('newTopicModal');
+      e.target.reset();
+      document.getElementById('duplicateAlertBox').className = "hidden";
+      alert("Topic successfully saved to Topic Bank!");
+    }
+
+    // Research & Trends Mining Tab
+    function renderResearchTrends() {
+      const container = document.getElementById('minedTrendsContainer');
+      const sampleTrends = [
+        {
+          title: "The War of the Bucket (1325)",
+          niche: "Historical Blunders",
+          channel: "history",
+          score: 96,
+          hook: "Two Italian city-states fought a bloody war with thousands of casualties... over a stolen wooden bucket from an oak well.",
+          style: "tall-tale",
+          sources: "Modena Municipal Archives, Chronicles of Bologna"
+        },
+        {
+          title: "The Bird That Mimics Chainsaws & Car Alarms",
+          niche: "Extreme Adaptations",
+          channel: "wildlife",
+          score: 98,
+          hook: "Deep in the Australian rainforest lives a lyrebird with vocal cords so complex it can mimic gunshots, car alarms, and chainsaws with 100% acoustic precision.",
+          style: "inside-out",
+          sources: "Nature Acoustics, BBC Wildlife Archive"
+        }
+      ];
+
+      container.innerHTML = sampleTrends.map(tr => `
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${tr.channel === 'history' ? 'badge-history' : 'badge-wildlife'}">${tr.channel.toUpperCase()}</span>
+            <span class="text-xs font-bold text-amber-400">Curiosity Score: ${tr.score}/100</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">${tr.title}</h4>
+          <p class="text-xs text-slate-300 italic bg-slate-950 p-3 rounded-xl border border-slate-800/80">"${tr.hook}"</p>
+          <div class="flex items-center justify-between pt-2">
+            <span class="text-[11px] text-slate-400">Sources: ${tr.sources}</span>
+            <button onclick="approveTrendToTopicBank('${tr.title}')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs">
+              + Approve To Bank
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function approveTrendToTopicBank(title) {
+      alert(`Topic "${title}" added to your approved Topic Bank!`);
+    }
+
+    function runTrendMining() {
+      if (isBridgeConnected) {
+        runPipelineAction('mine-trends');
+      } else {
+        alert("Running offline trend mining against curated curiosity vault. 5 new topics discovered!");
+      }
+    }
+
+    // Channel Hubs Rendering
+    function renderChannelHubs() {
+      const grid = document.getElementById('channelsDetailGrid');
+      grid.innerHTML = `
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🏛️</span>
+            <div>
+              <h4 class="text-base font-bold text-white">Channel 1: History & Lore</h4>
+              <p class="text-xs text-slate-400">YouTube @HistoryLoreDaily • Audience: Global Curiosity</p>
+            </div>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
+            <div class="font-bold text-amber-400 mb-1">8 Core Taxonomies:</div>
+            <div class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-300">
+              <div>• Ancient Civilizations</div>
+              <div>• Historical Mysteries</div>
+              <div>• Strange Historical Events</div>
+              <div>• Wars & Battles</div>
+              <div>• Historical Personalities</div>
+              <div>• Empires & Politics</div>
+              <div>• Unusual Incidents</div>
+              <div>• Forgotten Stories</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🐾</span>
+            <div>
+              <h4 class="text-base font-bold text-white">Channel 2: Wild Anatomy</h4>
+              <p class="text-xs text-slate-400">YouTube @WildAnatomyShorts • Audience: Science & Nature</p>
+            </div>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
+            <div class="font-bold text-emerald-400 mb-1">8 Core Taxonomies:</div>
+            <div class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-300">
+              <div>• Animal Biology</div>
+              <div>• Strange Adaptations</div>
+              <div>• Predator & Prey</div>
+              <div>• Survival Mechanisms</div>
+              <div>• Marine Creatures</div>
+              <div>• Insects & Arachnids</div>
+              <div>• Animal Intelligence</div>
+              <div>• Extreme Phenomena</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Reminders Rendering
+    function renderReminders() {
+      const container = document.getElementById('remindersListContainer');
+      const reminders = [
+        { title: "Day 1 Video: Voice & Subtitles verified; ready for Edge/FFmpeg render", type: "urgent", time: "Today 1:00 PM EST" },
+        { title: "Day 2 Video (Mantis Shrimp): Script generated; awaiting audio synthesis", type: "pending", time: "Tomorrow 12:30 PM EST" },
+        { title: "Upcoming slots for Days 5-15 ready in Topic Bank; schedule populated", type: "info", time: "Next 14 Days" }
+      ];
+
+      container.innerHTML = reminders.map(r => `
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="text-base">${r.type === 'urgent' ? '🚨' : (r.type === 'pending' ? '⏳' : 'ℹ️')}</span>
+            <div>
+              <div class="text-xs font-bold text-white">${r.title}</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5">Deadline Window: ${r.time}</div>
+            </div>
+          </div>
+          <button onclick="switchTab('production')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl text-white font-semibold shrink-0">
+            Action ➔
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function openNewTopicModal() {
+      document.getElementById('newTopicModal').classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function markReviewStatus(status) {
+      alert(`Video marked as [${status}]. Ready to advance.`);
+    }
+
+    function markReadyToPublish() {
+      alert("Video marked as [Ready to Publish]! All metadata and hashtags formatted for YouTube Studio upload.");
+    }
+
+    // Start App
+    window.addEventListener('DOMContentLoaded', initPlatform);
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "title": "The Roman Emperor Who Declared War On The Ocean",
+  "voice": "am_puck",
+  "speed": 0.94,
+  "lead": 0.45,
+  "outro": 1.2,
+  "gap": 0.38,
+  "music": "tension",
+  "sources": [
+    "Suetonius, The Lives of the Twelve Caesars (Life of Caligula, ch. 46)",
+    "Cassius Dio, Roman History (Book 59, ch. 25)"
+  ],
+  "lines": [
+    { "text": "In forty AD, Roman Emperor Caligula declared war on the God of the Sea.", "caps": "In *40 AD, | Rome declared *war | on the *Sea God." },
+    { "text": "Not an invading army. The literal ocean.", "caps": "Not an *army. | The *literal ocean." },
+    { "text": "He marched two hundred thousand legionaries all the way to France,", "caps": "Caligula marched | *200,000 soldiers | to the *coast," },
+    { "text": "ready to cross the stormy English Channel and invade Britain.", "caps": "ready to *invade | *Britain." },
+    { "text": "But when they reached the shore, Caligula suddenly changed his mind.", "caps": "But at the *beach, | he *changed his mind." },
+    { "text": "He declared Neptune, the Lord of the Sea, was Rome's mortal enemy.", "caps": "He declared *Neptune | Rome's *mortal enemy." },
+    { "text": "So he ordered his legions to draw their iron swords,", "caps": "He ordered his *legions | to draw their *swords," },
+    { "text": "form a battle line on the sand, and viciously stab the waves.", "caps": "and *stab | the *waves." },
+    { "text": "Catapults fired heavy boulders straight into the water.", "caps": "*Catapults fired | into the *water." },
+    { "text": "And when the ocean refused to surrender,", "caps": "And when the sea | *refused to surrender," },
+    { "text": "he commanded every soldier to fill their helmets with seashells,", "caps": "they filled their *helmets | with *seashells," },
+    { "text": "declaring them captured spoils of war from the sea.", "caps": "as captured *spoils | from the *Sea." },
+    { "text": "He returned to Rome in a grand triumph,", "caps": "He returned in a *triumph," },
+    { "text": "celebrating the day Rome conquered the ocean.", "caps": "The day Rome *conquered | the *ocean.", "gap": 0.35 }
+  ]
+}

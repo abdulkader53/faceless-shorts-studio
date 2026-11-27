@@ -1,0 +1,10 @@
+.faceless-shorts/
+bin/
+__pycache__/
+node_modules/
+*.zip
+renders/
+*.mp4
+*.mov
+setup_report.txt
+review/_*

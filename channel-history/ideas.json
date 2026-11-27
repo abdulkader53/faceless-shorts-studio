@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Hannibal's Double Encirclement At Cannae",
+    "hook": "An outnumbered Carthaginian army wiped out seventy thousand elite Romans... in under four hours.",
+    "twist": "Hannibal intentionally let his center retreat like a flexing bow, until the Roman legions were trapped in a fatal pocket.",
+    "style": "paper-atlas",
+    "voice": "bm_george",
+    "score": 99,
+    "category": "Military Tactics & Paper Maps",
+    "sources": [
+      "Polybius, The Histories",
+      "Livy, Ab Urbe Condita"
+    ]
+  },
+  {
+    "title": "The Roman Emperor Who Declared War On The Ocean",
+    "hook": "In 40 AD, a Roman Emperor mobilized two hundred thousand soldiers... to declare war on the ocean.",
+    "twist": "Caligula ordered his legions to draw their swords, stab the waves, and loot seashells as plunder from the Sea God.",
+    "style": "tall-tale",
+    "voice": "am_puck",
+    "score": 98,
+    "category": "Historical Blunder / Insane Rulers",
+    "sources": [
+      "Suetonius, The Lives of the Twelve Caesars",
+      "Cassius Dio, Roman History"
+    ]
+  },
+  {
+    "title": "The Con Artist Who Sold The Eiffel Tower Twice",
+    "hook": "In 1925, a con man sold the Eiffel Tower for scrap metal... and then did it a second time.",
+    "twist": "Victor Lustig faked official ministry letterheads, took bribes in a Parisian hotel, and fled to Vienna with briefcases of cash.",
+    "style": "tall-tale",
+    "voice": "am_puck",
+    "score": 97,
+    "category": "Heists & Loopholes",
+    "sources": [
+      "Secret Service Archive",
+      "Paris Police Prefecture Records"
+    ]
+  },
+  {
+    "title": "How One Small Bakery Burned Down London",
+    "hook": "In 1666, eighty-five percent of London burned to the ground... because a royal baker forgot to put out his oven.",
+    "twist": "Thomas Farriner swore his oven was cold, but sparks ignited pitch-covered timber houses, leaving 70,000 homeless in four days.",
+    "style": "paper-atlas",
+    "voice": "bm_george",
+    "score": 96,
+    "category": "Catastrophes & Animated Maps",
+    "sources": [
+      "Samuel Pepys Diary (1666)",
+      "Museum of London Archive"
+    ]
+  },
+  {
+    "title": "The Ghost Ship of 1872: Mary Celeste",
+    "hook": "A merchant vessel was found sailing at full speed... with warm food on tables, but not a single human onboard.",
+    "twist": "No signs of struggle, six months of rations intact, and personal belongings untouched. To this day, no body was ever found.",
+    "style": "night-file",
+    "voice": "bm_fable",
+    "score": 95,
+    "category": "Dark Historical Mysteries",
+    "sources": [
+      "Gibraltar Admiralty Court Records (1872)",
+      "British Maritime Archive"
+    ]
+  }
+]

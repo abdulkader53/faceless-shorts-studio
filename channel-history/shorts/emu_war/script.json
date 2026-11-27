@@ -1,0 +1,45 @@
+{
+  "title": "The Army That Lost A War To Birds",
+  "voice": "am_michael",
+  "speed": 1.05,
+  "lead": 0.25,
+  "outro": 1.3,
+  "gap": 0.16,
+  "music": "bounce",
+  "sources": [
+    "Wikipedia, 'Emu War' (Nov-Dec 1932, Campion district, Western Australia; roughly 20,000 emus; Major G.P.W. Meredith, Royal Australian Artillery, with two Lewis guns and 10,000 rounds; first gun jammed after a handful of kills; Meredith reported 986 emus killed using 9,860 rounds; army withdrew 10 Dec 1932; Meredith's remark that a military division with the bullet-carrying capacity of the emus would face any army in the world)",
+    "National Museum of Australia / Australian War Memorial summaries of the 1932 'Emu War' (WWI veterans on Soldier Settlement farms, wheat crops destroyed, ex-servicemen farmers asked for machine guns, Minister for Defence Sir George Pearce approved the operation)",
+    "ABC News Australia and Smithsonian Magazine retrospectives on the Emu War (emus split into small groups, the truck could not keep pace over rough ground, farmers later used a bounty scheme)"
+  ],
+  "metadata": {
+    "titles": [
+      "The Army That Lost A War To Birds",
+      "In 1932 Australia Sent Machine Guns To Fight 20,000 Emus",
+      "The Emu War: The Dumbest War In History (It's Real)"
+    ],
+    "description": "In 1932 the Australian army went to war against 20,000 emus... and the emus won. This is the true story of the Great Emu War. #shorts #history #emuwar #weirdhistory #australia",
+    "tags": ["emuwar", "history", "australia", "weirdhistory", "funnyhistory", "shorts", "historyfacts", "truestory"]
+  },
+  "lines": [
+    { "text": "In nineteen thirty-two, the Australian army went to war against twenty thousand emus.", "caps": "In 1932, | the Australian | army | went to war | against | 20,000 | emus." },
+    { "text": "And the emus won." },
+    { "text": "See, after World War One, Australia gave farmland to war veterans," },
+    { "text": "who started growing wheat." },
+    { "text": "Then twenty thousand hungry emus showed up,", "caps": "Then | 20,000 | hungry | emus | showed up," },
+    { "text": "and destroyed the crops." },
+    { "text": "The farmers had fought in the war, so they asked for machine guns." },
+    { "text": "And the army came, with two guns and ten thousand bullets.", "caps": "And the army | came, | with | two guns | and | 10,000 | bullets." },
+    { "text": "Easy mission, right?" },
+    { "text": "Wrong." },
+    { "text": "The emus split into tiny groups," },
+    { "text": "and sprinted away faster than the army's truck." },
+    { "text": "The first machine gun jammed." },
+    { "text": "A month later, ten thousand bullets", "caps": "A month | later, | 10,000 | bullets" },
+    { "text": "had taken down only about a thousand emus.", "caps": "had taken | down | only | about | a thousand | emus." },
+    { "text": "So the army gave up, and went home." },
+    { "text": "Even the major admitted, if his soldiers could take bullets like these birds," },
+    { "text": "they could take on any army on Earth." },
+    { "text": "Final score:" },
+    { "text": "emus one, army zero.", "caps": "Emus 1, | army 0.", "gap": 0.3 }
+  ]
+}

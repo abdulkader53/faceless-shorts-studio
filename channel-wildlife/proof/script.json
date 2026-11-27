@@ -1,0 +1,30 @@
+{
+  "voice": "am_michael",
+  "speed": 1.2,
+  "lead": 0.25,
+  "outro": 0.45,
+  "gap": 0.15,
+  "music": "bed",
+  "lines": [
+    {
+      "text": "The mantis shrimp strikes with ten thousand Gs of acceleration.",
+      "caps": "FASTEST STRIKE IN NATURE",
+      "gap": 0.15
+    },
+    {
+      "text": "Its biological spring bends like a crossbow, then slips the latch.",
+      "caps": "SPRING-LOADED BIOMECHANICS",
+      "gap": 0.15
+    },
+    {
+      "text": "The punch boils the water into a cavitation bubble,",
+      "caps": "HYDRODYNAMIC CAVITATION",
+      "gap": 0.15
+    },
+    {
+      "text": "whose collapse unleashes an eight-thousand-degree shockwave.",
+      "caps": "SONOLUMINESCENCE SHOCKWAVE",
+      "gap": 0.25
+    }
+  ]
+}

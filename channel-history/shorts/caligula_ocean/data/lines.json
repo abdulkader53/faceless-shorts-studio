@@ -1,0 +1,91 @@
+{
+ "duration": 49.168,
+ "voice": "am_puck",
+ "speed": 0.94,
+ "lines": [
+  {
+   "i": 0,
+   "text": "In forty AD, Roman Emperor Caligula declared war on the God of the Sea.",
+   "start": 0.45,
+   "end": 4.888
+  },
+  {
+   "i": 1,
+   "text": "Not an invading army. The literal ocean.",
+   "start": 5.268,
+   "end": 7.596
+  },
+  {
+   "i": 2,
+   "text": "He marched two hundred thousand legionaries all the way to France,",
+   "start": 7.976,
+   "end": 11.676
+  },
+  {
+   "i": 3,
+   "text": "ready to cross the stormy English Channel and invade Britain.",
+   "start": 11.756,
+   "end": 15.109
+  },
+  {
+   "i": 4,
+   "text": "But when they reached the shore, Caligula suddenly changed his mind.",
+   "start": 15.489,
+   "end": 18.963
+  },
+  {
+   "i": 5,
+   "text": "He declared Neptune, the Lord of the Sea, was Rome's mortal enemy.",
+   "start": 19.343,
+   "end": 23.105
+  },
+  {
+   "i": 6,
+   "text": "So he ordered his legions to draw their iron swords,",
+   "start": 23.485,
+   "end": 26.245
+  },
+  {
+   "i": 7,
+   "text": "form a battle line on the sand, and viciously stab the waves.",
+   "start": 26.365,
+   "end": 30.015
+  },
+  {
+   "i": 8,
+   "text": "Catapults fired heavy boulders straight into the water.",
+   "start": 30.395,
+   "end": 33.224
+  },
+  {
+   "i": 9,
+   "text": "And when the ocean refused to surrender,",
+   "start": 33.604,
+   "end": 35.684
+  },
+  {
+   "i": 10,
+   "text": "he commanded every soldier to fill their helmets with seashells,",
+   "start": 35.744,
+   "end": 39.184
+  },
+  {
+   "i": 11,
+   "text": "declaring them captured spoils of war from the sea.",
+   "start": 39.334,
+   "end": 42.443
+  },
+  {
+   "i": 12,
+   "text": "He returned to Rome in a grand triumph,",
+   "start": 42.823,
+   "end": 44.913
+  },
+  {
+   "i": 13,
+   "text": "celebrating the day Rome conquered the ocean.",
+   "start": 45.063,
+   "end": 47.618
+  }
+ ]
+}

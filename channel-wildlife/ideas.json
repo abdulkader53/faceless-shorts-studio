@@ -1,0 +1,67 @@
+[
+  {
+    "title": "The Shrimp That Punches At 8,000\u00b0F",
+    "hook": "This tiny peacock shrimp delivers a punch that collapses water so fast... it reaches the temperature of the sun.",
+    "twist": "Its club accelerates at ten thousand Gs, vaporizing water into cavitation bubbles that flash light and shatter crab shells.",
+    "style": "deep-dive",
+    "voice": "am_michael",
+    "score": 99,
+    "category": "Biomechanics & Superpowers",
+    "sources": [
+      "Journal of Experimental Biology (Patek et al.)",
+      "Nature Magazine"
+    ]
+  },
+  {
+    "title": "Why Lions Refuse To Fight The Honey Badger",
+    "hook": "A pride of six hungry lions will back away from this small creature... and for a terrifying reason.",
+    "twist": "Its skin is six millimeters thick and so rubbery it can turn around inside a predator's mouth to claw its eyes out.",
+    "style": "inside-out",
+    "voice": "am_michael",
+    "score": 98,
+    "category": "Apex Adaptations",
+    "sources": [
+      "Smithsonian National Zoo",
+      "Journal of Mammalogy"
+    ]
+  },
+  {
+    "title": "What Happens When A Bullet Ant Stings Your Bloodstream?",
+    "hook": "This ant's sting causes twenty-four straight hours of agony... comparable to walking on burning coals with rusty nails.",
+    "twist": "Its venom contains poneratoxin, a neurotoxin that locks sodium ion channels open, preventing nerves from turning off pain signals.",
+    "style": "deep-dive",
+    "voice": "am_michael",
+    "score": 97,
+    "category": "Anatomy & Venom Journey",
+    "sources": [
+      "Schmidt Sting Pain Index",
+      "Toxicon Journal"
+    ]
+  },
+  {
+    "title": "The Immortal Jellyfish That Can Reset Its Own Age",
+    "hook": "Deep in the Mediterranean swims a creature that is biologically capable of living forever.",
+    "twist": "When starved or wounded, Turritopsis dohrnii triggers transdifferentiation, transforming its adult cells back into newborn polyps.",
+    "style": "deep-dive",
+    "voice": "am_michael",
+    "score": 96,
+    "category": "Cellular Immortality",
+    "sources": [
+      "Biological Bulletin",
+      "National Geographic Research"
+    ]
+  },
+  {
+    "title": "How Owls Fly In Total Absolute Silence",
+    "hook": "Pigeons flap with noisy clatter, but an owl can dive at full speed... without creating a single decibel of sound.",
+    "twist": "The leading edge of its wing has microscopic comb-like serrations that slice turbulent air into silent micro-currents.",
+    "style": "inside-out",
+    "voice": "am_michael",
+    "score": 95,
+    "category": "Aero-Acoustic Biology",
+    "sources": [
+      "Royal Society Open Science",
+      "MIT Fluid Dynamics Laboratory"
+    ]
+  }
+]

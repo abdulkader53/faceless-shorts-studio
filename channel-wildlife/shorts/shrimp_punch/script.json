@@ -1,0 +1,30 @@
+{
+  "title": "The Shrimp That Punches At 8,000°F",
+  "voice": "am_michael",
+  "speed": 0.94,
+  "lead": 0.45,
+  "outro": 1.2,
+  "gap": 0.38,
+  "music": "tension",
+  "sources": [
+    "Journal of Experimental Biology (Patek et al., 2004)",
+    "Nature (Vol. 395, 1998)",
+    "Science (Vol. 305, Biomechanics of Cavitation Strike)"
+  ],
+  "lines": [
+    { "text": "This tiny peacock mantis shrimp delivers the fastest punch in the animal kingdom.", "caps": "The *fastest punch | in the *animal kingdom." },
+    { "text": "Accelerating faster than a bullet fired from a handgun.", "caps": "Accelerating *faster | than a *bullet." },
+    { "text": "Its dactyl clubs strike with over ten thousand Gs of acceleration.", "caps": "*10,000 Gs | of explosive *force." },
+    { "text": "Reaching fifty miles per hour in less than three milliseconds.", "caps": "*50 miles per hour | in three *milliseconds." },
+    { "text": "The club moves so fast underwater that it rips water molecules apart.", "caps": "It rips *water | *molecules apart." },
+    { "text": "Creating extreme low-pressure cavitation bubbles.", "caps": "Creating *cavitation | vapor *bubbles." },
+    { "text": "When these vacuum bubbles instantly collapse under ocean pressure,", "caps": "When these *bubbles | *collapse," },
+    { "text": "they generate temperatures exceeding eight thousand degrees Fahrenheit.", "caps": "temperatures exceed | *8,000 degrees." },
+    { "text": "Nearly as hot as the surface of the sun.", "caps": "As hot as the *surface | of the *sun." },
+    { "text": "Releasing a shockwave and an invisible micro-flash of light.", "caps": "Releasing a *shockwave | and *light." },
+    { "text": "Even if the shrimp misses the target completely,", "caps": "Even if the punch | *misses," },
+    { "text": "the collapsing shockwave alone shatters heavy crab armor.", "caps": "the shockwave *shatters | crab *armor." },
+    { "text": "Delivering two devastating impacts in a single strike.", "caps": "*Two impacts | in one *strike." },
+    { "text": "Meet nature's deadliest underwater heavyweight boxer.", "caps": "Nature's *deadliest | underwater *boxer.", "gap": 0.35 }
+  ]
+}
